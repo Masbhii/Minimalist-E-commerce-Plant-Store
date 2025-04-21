@@ -14,10 +14,8 @@ export const WishlistProvider: React.FC<{
 }) => {
   const [wishlist, setWishlist] = useState<Product[]>([]);
   useEffect(() => {
-    const saved = localStorage.getItem('wishlist');
-    if (saved) {
-      setWishlist(JSON.parse(saved));
-    }
+    // Jangan ambil dari localStorage, mulai kosong setiap reload
+    setWishlist([]);
   }, []);
   const addToWishlist = (product: Product) => {
     setWishlist(current => {

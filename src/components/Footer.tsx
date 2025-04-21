@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { InstagramIcon, FacebookIcon, TwitterIcon } from 'lucide-react';
+import { InstagramIcon, FacebookIcon, TwitterIcon, LinkedinIcon, GithubIcon } from 'lucide-react';
+
 export const Footer: React.FC = () => {
-  return <footer className="bg-white border-t border-gray-200">
+  return (
+    <footer className="bg-white border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -15,14 +17,14 @@ export const Footer: React.FC = () => {
               selection of plants and flowers.
             </p>
             <div className="flex mt-4 space-x-4">
-              <a href="#" className="text-gray-400 hover:text-green-700">
-                <InstagramIcon size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-green-700">
-                <FacebookIcon size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-green-700">
+              <a href="https://x.com/phonecats7" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-green-700">
                 <TwitterIcon size={20} />
+              </a>
+              <a href="https://www.linkedin.com/in/bhiazhr" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-green-700">
+                <LinkedinIcon size={20} />
+              </a>
+              <a href="https://github.com/Masbhii" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-green-700">
+                <GithubIcon size={20} />
               </a>
             </div>
           </div>
@@ -111,5 +113,6 @@ export const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };

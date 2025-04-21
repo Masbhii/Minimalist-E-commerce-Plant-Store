@@ -1,26 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCartIcon } from 'lucide-react';
+import { ShoppingCartIcon, HeartIcon } from 'lucide-react';
 import { Product } from '../data/products';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
+
 interface ProductCardProps {
   product: Product;
 }
 export const ProductCard: React.FC<ProductCardProps> = ({
   product
 }) => {
-  const {
-    addItem
-  } = useCart();
+  const { addItem } = useCart();
+  const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const isWishlisted = isInWishlist(product.id);
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isWishlisted) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
+  };
+
+
+
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     addItem(product, 1);
   };
-  return <div className="group relative">
-      <Link to={`/product/${product.id}`} className="block">
+  return (
+    <div className="group relative">
+
+      <Link to={`/product/${product.id}`} className="block relative">
         <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-100">
           <img src={product.image} alt={product.name} className="h-64 w-full object-cover object-center group-hover:opacity-90 transition-opacity" />
+
         </div>
         <div className="mt-4 flex justify-between">
           <div>
@@ -38,5 +56,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <ShoppingCartIcon size={16} className="mr-2" />
         Add to Cart
       </button>
-    </div>;
+    </div>
+  );
 };

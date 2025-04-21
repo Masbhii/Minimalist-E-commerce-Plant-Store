@@ -127,7 +127,6 @@ export const HomePage: React.FC = () => {
                 the perfect greenery for your space and providing the knowledge
                 you need to keep them flourishing.
               </p>
-              <Button variant="outline">Learn More About Us</Button>
             </div>
             <div className="rounded-lg overflow-hidden">
               <img src="https://images.unsplash.com/photo-1558603668-6570496b66f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Plant nursery" className="w-full h-full object-cover" />

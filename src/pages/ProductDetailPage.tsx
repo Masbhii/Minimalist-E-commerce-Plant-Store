@@ -4,7 +4,12 @@ import { getProductById } from '../data/products';
 import { useCart } from '../context/CartContext';
 import { Button } from '../components/Button';
 import { MinusIcon, PlusIcon, LeafIcon, TruckIcon, HeartIcon } from 'lucide-react';
+import { useWishlist } from '../context/WishlistContext';
+import { useRecentlyViewed } from '../context/RecentlyViewedContext';
 export const ProductDetailPage: React.FC = () => {
+  const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const { addToRecentlyViewed } = useRecentlyViewed();
+
   const {
     id
   } = useParams<{
@@ -16,6 +21,11 @@ export const ProductDetailPage: React.FC = () => {
   } = useCart();
   const [quantity, setQuantity] = useState(1);
   const product = id ? getProductById(id) : null;
+  React.useEffect(() => {
+    if (product) {
+      addToRecentlyViewed(product);
+    }
+  }, [product, addToRecentlyViewed]);
   if (!product) {
     return <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 text-center">
         <h1 className="text-2xl font-medium text-gray-900">
@@ -39,6 +49,14 @@ export const ProductDetailPage: React.FC = () => {
   };
   const handleAddToCart = () => {
     addItem(product, quantity);
+  };
+    const isWishlisted = isInWishlist(product.id);
+  const handleWishlistToggle = () => {
+    if (isWishlisted) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
   };
   return <div className="w-full bg-white">
       <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
@@ -82,9 +100,14 @@ export const ProductDetailPage: React.FC = () => {
                 <Button onClick={handleAddToCart} size="large" fullWidth>
                   Add to Cart
                 </Button>
-                <Button variant="outline" size="large">
-                  <HeartIcon size={20} />
-                </Button>
+                <Button
+  variant="outline"
+  size="large"
+  aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+  onClick={handleWishlistToggle}
+>
+  <HeartIcon size={20} fill={isWishlisted ? '#22c55e' : 'none'} stroke={isWishlisted ? '#22c55e' : 'currentColor'} />
+</Button>
               </div>
             </div>
             {/* Product Features */}
